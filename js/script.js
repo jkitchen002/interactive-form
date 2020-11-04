@@ -1,26 +1,24 @@
 //global variables
 const name = document.querySelector('#name');
-const optionOther = document.querySelectorAll('option')[5];
 const otherTitle = document.querySelector('#other-title');
 const title = document.querySelector('#title');
 
 //put focus on the name element upon loading the window
-focusMethod = function getFocus() {
+focusOnLoad = function getFocus() {
   name.focus();
 };
 
 window.addEventListener('load', () => {
-  focusMethod();
+  focusOnLoad();
 });
 
 //Hide other text box
-
 otherTitle.style.display = 'none';
 
-function showOtherJobRole() {
-  otherTitle.style.display = 'block';
-}
-
-optionOthertle.addEventListener('click', () => {
-  showOtherJobRole();
+title.addEventListener('click', (e) => {
+  if (e.target.value == 'other') {
+    otherTitle.style.display = 'block';
+  } else {
+    otherTitle.style.display = 'none';
+  }
 });
