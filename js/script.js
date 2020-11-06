@@ -3,6 +3,8 @@ const name = document.querySelector('#name');
 const otherTitle = document.querySelector('#other-title');
 const title = document.querySelector('#title');
 const activity = document.querySelector('.activities');
+const design = document.querySelector('#design');
+const payment = document.querySelector('#payment');
 
 //put focus on the name element upon loading the window
 focusOnLoad = function getFocus() {
@@ -25,7 +27,7 @@ title.addEventListener('click', (e) => {
 });
 
 //------------------------------T-Shirt Section----------------------------------//
-const design = document.querySelector('#design');
+
 const shirtColors = document.querySelector('#shirt-colors');
 const selectTheme = document.querySelector('#design option');
 const colors = document.querySelector('#color');
@@ -74,17 +76,39 @@ design.addEventListener('change', (e) => {
 
 // Create a total cost element
 let totalCost = 0;
-const input = document.querySelectorAll('input');
-
-const h4 = document.createElement('h4');
-h4.innerHTML = `Total cost of your activities: $${totalCost}`;
-activity.appendChild(h4);
-
-const clickedActivity = document.querySelectorAll('.activities input');
 
 //Event listener added to the
-activity.addEventListener('change', () => {
-  // const clickedActivity = document.querySelectorAll('.activities input');
-  let cost = input.getAttribute('[data-cost]');
-  console.log(cost);
+activity.addEventListener('click', (e) => {
+  if (e.target.checked) {
+    let cost = e.target.getAttribute('data-cost');
+    let cost1 = parseInt(cost);
+    totalCost += cost1;
+    const printCost = document.createElement('h4');
+    activity.appendChild(printCost);
+    printCost.innerHTML = `Total: $${totalCost}`;
+  }
+});
+
+//--------------------------Payment Section--------------------------------
+const paymentMethod = document.querySelector('#payment option');
+const creditCardText = document.querySelector('#credit-card');
+const PayPalText = document.querySelector('#paypal');
+const BitcoinText = document.querySelector('#bitcoin');
+
+payment.addEventListener('click', (e) => {
+  paymentMethod.style.display = 'none';
+
+  if (e.target.value == 'credit card') {
+    creditCardText.style.display = 'block';
+    PayPalText.style.display = 'none';
+    BitcoinText.style.display = 'none';
+  } else if (e.target.value == 'paypal') {
+    PayPalText.style.display = 'block';
+    creditCardText.style.display = 'none';
+    BitcoinText.style.display = 'none';
+  } else if (e.target.value == 'bitcoin') {
+    BitcoinText.style.display = 'block';
+    creditCardText.style.display = 'none';
+    PayPalText.style.display = 'none';
+  }
 });
