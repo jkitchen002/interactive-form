@@ -76,7 +76,6 @@ design.addEventListener('change', (e) => {
 
 // Create a total cost element
 let totalCost = 0;
-
 //Event listener added to the
 activity.addEventListener('click', (e) => {
   if (e.target.checked) {
