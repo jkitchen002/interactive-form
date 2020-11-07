@@ -39,9 +39,6 @@ const tomato = document.querySelectorAll('option')[16];
 const steelblue = document.querySelectorAll('option')[17];
 const dimgrey = document.querySelectorAll('option')[18];
 
-const JSPuns = [cornflowerblue, darkslategrey, gold];
-const ihearjs = [tomato, steelblue, dimgrey];
-
 shirtColors.style.display = 'none';
 
 function reset() {
@@ -80,8 +77,9 @@ let totalCost = 0;
 const printCost = document.createElement('h4');
 activity.appendChild(printCost);
 
-//Event listener added to the
+// Event listener added to the activity section
 activity.addEventListener('change', (e) => {
+  //Updating and displaying the total activity cost
   if (e.target.checked) {
     const cost = e.target.getAttribute('data-cost');
     const cost1 = parseInt(cost);
@@ -91,8 +89,34 @@ activity.addEventListener('change', (e) => {
     const cost1 = parseInt(cost);
     totalCost -= cost1;
   }
+  printCost.innerHTML = `Total: $${totalCost}`; /*Print to screen */
 
-  printCost.innerHTML = `Total: $${totalCost}`;
+  // Disabling conflicting activities
+  const dayTime = e.target.getAttribute('data-day-and-time');
+  const activityInput = document.querySelectorAll('.activities input ');
+
+  for (let i = 0; i < activityInput.length; i++) {
+    if (
+      activityInput[i].getAttribute('data-day-and-time') === dayTime &&
+      e.target !== activityInput[i]
+    ) {
+      if (e.target.checked) {
+        activityInput[i].setAttribute('disabled', true);
+        activityInput[i].parentElement.style.color = 'gray';
+        activityInput[i].parentElement.style.setProperty(
+          'text-decoration',
+          'line-through'
+        );
+      } else {
+        activityInput[i].removeAttribute('disabled');
+        activityInput[i].parentElement.style.color = '';
+        activityInput[i].parentElement.style.setProperty(
+          'text-decoration',
+          'none'
+        );
+      }
+    }
+  }
 });
 
 //--------------------------Payment Section--------------------------------
