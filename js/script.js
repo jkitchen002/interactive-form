@@ -76,16 +76,23 @@ design.addEventListener('change', (e) => {
 
 // Create a total cost element
 let totalCost = 0;
+// Print message
+const printCost = document.createElement('h4');
+activity.appendChild(printCost);
+
 //Event listener added to the
-activity.addEventListener('click', (e) => {
+activity.addEventListener('change', (e) => {
   if (e.target.checked) {
-    let cost = e.target.getAttribute('data-cost');
-    let cost1 = parseInt(cost);
+    const cost = e.target.getAttribute('data-cost');
+    const cost1 = parseInt(cost);
     totalCost += cost1;
-    const printCost = document.createElement('h4');
-    activity.appendChild(printCost);
-    printCost.innerHTML = `Total: $${totalCost}`;
+  } else if (!e.target.checked) {
+    const cost = e.target.getAttribute('data-cost');
+    const cost1 = parseInt(cost);
+    totalCost -= cost1;
   }
+
+  printCost.innerHTML = `Total: $${totalCost}`;
 });
 
 //--------------------------Payment Section--------------------------------
